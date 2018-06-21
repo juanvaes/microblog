@@ -2,8 +2,11 @@
 from flask import render_template, redirect, flash, url_for, request
 from werkzeug.urls import url_parse
 from datetime import datetime
+
 # extensions imports
 from flask_login import current_user, login_user, logout_user, login_required
+
+
 # Local imports
 from .app import app, db
 from app.errors import internal_error, not_found_error
@@ -70,6 +73,11 @@ def logout():
 @login_required
 def dashboard():
 	return(render_template('dashboard.html'))
+
+@app.route('/users/', methods=['GET'])
+def get_users():
+	users = User.query.all()
+	return(render_template('users.html', users = users))
 
 
 @app.route('/user/<username>')

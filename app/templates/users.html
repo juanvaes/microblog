@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% for user in users %}
+    <div>
+        <strong>{{ user.username }} user </strong>: Take a look <a href="{{ url_for('user_profile', username = user.username) }}">here</a>.
+    </div>
+    {% endfor %}
+{% endblock %}
