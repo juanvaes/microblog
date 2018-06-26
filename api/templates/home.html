@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1> Home Page </h1>
+<h2>Hi {{current_user.username}} </h2>
+{% if form %}
+	<form action="" method="POST">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.post.label }}<br>
+			{{ form.post(cols=34, rows=4) }}<br>
+			{% for error in form.post.errors %}
+				<span style="color:red;" >[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>{{ form.submit }}</p>
+	</form>
+{% endif %}
+
+{% for post in posts %}
+	{% include '_post.html' %}
+{% endfor %}
+{% endblock %}

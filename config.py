@@ -8,3 +8,4 @@ class Config(object):
 	SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 	SQLALCHEMY_DATABASE_URI = 'mysql://juancamilo:4454861@localhost/practiflask'							#mysql://username:password@server/db
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	POSTS_PER_PAGE = 3
