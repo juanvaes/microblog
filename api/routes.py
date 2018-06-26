@@ -25,8 +25,9 @@ def home():
 		db.session.commit()
 		flash('Great!')
 		return redirect(url_for('home'))
-	posts = current_user.followed_posts().all()
-	return(render_template('home.html', form = form_obj, posts = posts))
+	page = request.args.get('page', 1, type = int)
+	posts = current_user.followed_posts().paginate(page, app.config['POSTS_PER_PAGE'], False).items
+	return(render_template('home.html', title = 'Home', form = form_obj, posts = posts))
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -150,5 +151,6 @@ def unfollow(username):
 @app.route('/explore')
 @login_required
 def explore():
-	posts = Post.query.order_by(Post.timestamp.desc()).all()
+	page = request.args.get('page', 1, type = int)
+	posts = Post.query.order_by(Post.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False).items
 	return render_template('home.html', title = 'Explore', posts = posts)
