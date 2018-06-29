@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
 
 from config import Config
 
@@ -15,7 +16,8 @@ app.config.from_object(Config)
 login = LoginManager(app)
 login.login_view = 'login'
 
-
+# Initialize a mail application
+mail = Mail(app)
 # Creates an instance of db by binding the flask application (the app object)
 db = SQLAlchemy(app) 	#This is a database object
 

@@ -5,15 +5,25 @@ from datetime import datetime
 
 # flask extensions imports
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_mail import Mail, Message
 
 
 # Local imports
 from .app import app
 from .app import db
+from .app import mail
 from .errors import internal_error, not_found_error
 from .forms import LoginForm, RegisterForm, EditProfileForm, PostForm
 from .models import User, Post
 
+
+
+@app.route('/msg')
+def msg():
+	msg = Message('Atención!', sender='energiesop@gmail.com', recipients = ['jcvalencia22@hotmail.com'])
+	msg.body = "Este sabado no deben trabajar"
+	mail.send(msg)
+	return 'sent'
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/home', methods=['GET','POST'])
