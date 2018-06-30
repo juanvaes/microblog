@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_bootstrap import Bootstrap
 
 from config import Config
 
@@ -18,6 +19,10 @@ login.login_view = 'login'
 
 # Initialize a mail application
 mail = Mail(app)
+
+#Initialize a bootstrap object
+boostrap = Bootstrap()
+
 # Creates an instance of db by binding the flask application (the app object)
 db = SQLAlchemy(app) 	#This is a database object
 
