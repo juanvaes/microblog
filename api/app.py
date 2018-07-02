@@ -21,7 +21,7 @@ login.login_view = 'login'
 mail = Mail(app)
 
 #Initialize a bootstrap object
-boostrap = Bootstrap()
+boostrap = Bootstrap(app)
 
 # Creates an instance of db by binding the flask application (the app object)
 db = SQLAlchemy(app) 	#This is a database object

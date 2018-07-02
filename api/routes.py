@@ -35,7 +35,7 @@ def home():
 		prev_url = url_for('home', page = posts.prev_num) if posts.has_prev else None
 		return(render_template('home.html', title = 'Home', form = form_obj, posts = posts.items, next_url = next_url, prev_url = prev_url))
 	
-	return(render_template('home.html', title = 'Home', form = form_obj))
+	return(render_template('home.html', title = 'Explore', form = form_obj))
 
 @app.route('/register', methods=['GET','POST'])
 def register():

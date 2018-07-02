@@ -1,33 +1,44 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1> Home Page </h1>
-<h2>Hi {{current_user.username}} </h2>
-{% if form %}
-	<form action="" method="POST">
-		{{ form.hidden_tag() }}
-		<p>
-			{{ form.post.label }}<br>
-			{{ form.post(cols=34, rows=4) }}<br>
-			{% for error in form.post.errors %}
-				<span style="color:red;" >[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>{{ form.submit }}</p>
-	</form>
-{% endif %}
+<div class="jumbotron text-center">
+	<h1> Home Page </h1>
+	<h2>Hi {{current_user.username}} </h2>
+	{% if form %}
+		<form action="" method="POST">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.post.label }}<br>
+				{{ form.post(cols=34, rows=4) }}<br>
+				{% for error in form.post.errors %}
+					<span style="color:red;" >[{{ error }}]</span>
+				{% endfor %}
+			</p>
+			<p>{{ form.submit }}</p>
+		</form>
+	{% endif %}
+	
+	{% if current_user.is_anonymous %}
+		<a href="{{url_for('login')}}" class="btn btn-primary btn-lg">Login</a>
+		<a href="{{url_for('register')}}" class="btn btn-primary btn-lg">Register</a>
+	{% endif %}
+</div>
 
-{% for post in posts %}
-	{% include '_post.html' %}
-{% endfor %}
+	
+	{% if posts %}
+		<table>
+		{% for post in posts %}
+				{% include '_post.html' %}
+		{% endfor %}
+		</table>
+	{% endif %}
 
-{% if prev_url%}
-	<a href="{{ prev_url }}">Newer Posts</a>
-{% endif %}
+	{% if prev_url%}
+		<a href="{{ prev_url }}">Newer Posts</a>
+	{% endif %}
 
-{% if next_url %}
-	<a href="{{ next_url }}">Older Posts</a>
-{% endif %}
-
+	{% if next_url %}
+		<a href="{{ next_url }}">Older Posts</a>
+	{% endif %}
 
 {% endblock %}
