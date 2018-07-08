@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 
 from config import Config
 
@@ -22,6 +23,9 @@ mail = Mail(app)
 
 #Initialize a bootstrap object
 boostrap = Bootstrap(app)
+
+#Initialize a moment object
+moment = Moment(app)
 
 # Creates an instance of db by binding the flask application (the app object)
 db = SQLAlchemy(app) 	#This is a database object

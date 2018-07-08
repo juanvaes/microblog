@@ -7,11 +7,15 @@ from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Mail, Message
 
+# Modules
+import moment
+
 
 # Local imports
 from .app import app
 from .app import db
 from .app import mail
+from .app import moment
 from .errors import internal_error, not_found_error
 from .forms import LoginForm, RegisterForm, EditProfileForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from .models import User, Post
@@ -92,12 +96,14 @@ def dashboard():
 @login_required
 def user_profile(username):
 	user = User.query.filter_by(username=username).first_or_404()
+	current_seen = datetime.utcnow()
+	last_seen = user.last_seen
 	page = request.args.get('page', 1, type = int)
 	posts = user.posts.order_by(Post.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
 	next_url = url_for('user_profile', username = user.username, page = posts.next_num) if posts.has_next else None
 	prev_url = url_for('user_profile', username = user.username, page = posts.prev_num) if posts.has_prev else None
 	print(posts)
-	return(render_template('user.html', user = user, posts = posts.items, next_url = next_url, prev_url = prev_url))
+	return(render_template('user.html', user = user, posts = posts.items, next_url = next_url, prev_url = prev_url, last_seen=last_seen, current_seen = current_seen))
 
 
 @app.before_request
